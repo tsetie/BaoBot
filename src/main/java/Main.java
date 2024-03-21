@@ -3,11 +3,14 @@ import events.*;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.exceptions.InvalidTokenException;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 
 import java.net.URI;
 import java.net.URL;
 import java.net.http.HttpRequest;
+import java.sql.Connection;
 
 
 public class Main {
@@ -15,12 +18,14 @@ public class Main {
         JDABuilder jdaBuilder = JDABuilder.createDefault(args[0]);
 
         Database db = new Database();
-        db.connectToDb();
+        Connection conn = db.connectToDb();
+        // Ran one time already
+        // db.createTable(conn);
 
        try {
 
            JDA jda = jdaBuilder.enableIntents(GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MESSAGES)
-                   .addEventListeners(new MessageEventListener(), new JokeEventListener()).build();
+                   .addEventListeners(new ReminderEventListener(), new JokeEventListener()).build();
 
            // we want setGuildOnly(true) when developing bot bc slash cmds that are global will take up to an hour to update
            // and by default, if we don't have setGuildOnly(true), it will register the upsertcommand() as a global command.
