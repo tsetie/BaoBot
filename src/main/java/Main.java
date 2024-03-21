@@ -25,7 +25,7 @@ public class Main {
        try {
 
            JDA jda = jdaBuilder.enableIntents(GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MESSAGES)
-                   .addEventListeners(new ReminderEventListener(), new JokeEventListener()).build();
+                   .addEventListeners(new ReminderEventListener(), new JokeEventListener(), new ClearEventListener()).build();
 
            // we want setGuildOnly(true) when developing bot bc slash cmds that are global will take up to an hour to update
            // and by default, if we don't have setGuildOnly(true), it will register the upsertcommand() as a global command.

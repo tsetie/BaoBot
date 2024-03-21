@@ -25,7 +25,6 @@ public class ReminderEventListener extends ListenerAdapter {
         try {
             if (event.getMessage().getContentRaw().equalsIgnoreCase("reminders")) {
                 ResultSet rs = db.showAllReminders(conn, username, event);
-//                channel.sendMessage(username + "'s Reminders").queue();
                 // for every row in db, it will print the reminderID and reminder
                 // next() method of the rs obj moves the cursor to the next
                 // row in the result set and returns true if there is a next row available
